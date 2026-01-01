@@ -77,13 +77,14 @@
       backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--border);
       z-index: 1000;
-      padding: 16px 0;
+      padding: 12px 0;
     }
 
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
     }
 
     .logo {
@@ -93,6 +94,7 @@
       font-weight: 800;
       font-size: 20px;
       letter-spacing: -0.5px;
+      flex-shrink: 0;
     }
 
     .logo img {
@@ -404,6 +406,14 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
+      .nav {
+        padding: 0 4px;
+      }
+      .nav .btn-secondary {
+        flex: 1;
+        max-width: none;
+        margin-left: 8px;
+      }
       .nav-links { display: none; }
       .hero { padding: 120px 0 60px; }
       .hero h1 { font-size: 42px; }
