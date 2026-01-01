@@ -411,8 +411,22 @@
       section { padding: 60px 0; }
       .grid { grid-template-columns: 1fr; }
       .section-header h2 { font-size: 28px; }
-      .hero-btns { flex-direction: column; align-items: stretch; }
-      .btn { justify-content: center; width: 100%; }
+      .hero-btns { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 12px;
+      }
+      .btn { 
+        justify-content: center; 
+        width: 100%; 
+        max-width: 320px; /* Prevent buttons from getting too wide */
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      .btn i {
+        width: 16px; /* Slightly smaller icons on mobile */
+        height: 16px;
+      }
       .connect-grid { grid-template-columns: 1fr; }
     }
 
@@ -420,8 +434,16 @@
       .container { padding: 0 16px; }
       .hero h1 { font-size: 36px; }
       .card { padding: 24px; }
+      .card i {
+        width: 24px; /* Smaller icons in cards for small screens */
+        height: 24px;
+      }
       .rule-item { flex-direction: column; gap: 12px; }
       .rule-icon { width: 40px; height: 40px; }
+      .rule-icon i {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     /* Toast Notification */
