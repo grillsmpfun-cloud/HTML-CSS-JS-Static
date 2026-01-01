@@ -737,10 +737,16 @@
       <div class="copy-box">
         <label>Discord</label>
         <div class="copy-value">discord.gg/f8wQWDJ5eF</div>
-        <button class="copy-btn" onclick="copyToClipboard('https://discord.gg/f8wQWDJ5eF', this)">
-          <i data-lucide="external-link" size="16"></i>
-          Join Discord
-        </button>
+        <div style="display: flex; gap: 10px; margin-top: auto;">
+          <a href="https://discord.gg/f8wQWDJ5eF" target="_blank" class="copy-btn" style="flex: 1; text-decoration: none;">
+            <i data-lucide="external-link" size="16"></i>
+            Join
+          </a>
+          <button class="copy-btn" onclick="copyToClipboard('https://discord.gg/f8wQWDJ5eF', this)" style="flex: 1;">
+            <i data-lucide="copy" size="16"></i>
+            Copy
+          </button>
+        </div>
       </div>
       <div class="copy-box">
         <label>Version</label>
