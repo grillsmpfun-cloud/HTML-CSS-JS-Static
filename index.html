@@ -522,11 +522,16 @@
       border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     .modal-content iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
+      border: 0;
     }
 
     .modal-close {
@@ -785,7 +790,7 @@
   // Modal System
   const modal = document.getElementById('videoModal');
   const playerContainer = document.getElementById('playerContainer');
-  const trailerEmbed = '<iframe width="560" height="315" src="https://www.youtube.com/embed/4txZargvXhc?si=HRIElYvii-2hE05W&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  const trailerEmbed = '<iframe src="https://www.youtube.com/embed/4txZargvXhc?si=HRIElYvii-2hE05W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
 
   function openModal() {
     modal.style.display = 'flex';
