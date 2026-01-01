@@ -8,6 +8,23 @@
   <meta name="description" content="Official launch of GrillSMP Lifesteal Season 3. High-stakes PvP, alliances, betrayals, and nonstop chaos." />
   <meta name="theme-color" content="#0f0f0f" />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://cdn.grillsmp.fun/cdn/grillsmp.png">
+  
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://grillsmp.fun/">
+  <meta property="og:title" content="GrillSMP Lifesteal Season 3 | Official Launch">
+  <meta property="og:description" content="Join the most intense Minecraft community. High stakes PvP, deep alliances, and a heart-pounding survival system.">
+  <meta property="og:image" content="https://cdn.grillsmp.fun/cdn/bannergrillsmp.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://grillsmp.fun/">
+  <meta property="twitter:title" content="GrillSMP Lifesteal Season 3 | Official Launch">
+  <meta property="twitter:description" content="Join the most intense Minecraft community. High stakes PvP, deep alliances, and a heart-pounding survival system.">
+  <meta property="twitter:image" content="https://cdn.grillsmp.fun/cdn/bannergrillsmp.png">
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
@@ -390,6 +407,47 @@
       .hero { padding: 140px 0 60px; }
       section { padding: 60px 0; }
     }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toast {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
+    }
+
+    .toast i {
+      color: var(--accent);
+    }
+
+    @keyframes toastIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .toast.hide {
+      transform: translateX(100%);
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
@@ -409,6 +467,8 @@
     <a href="https://discord.gg/am4Te3SK?event=1456132737814761583" class="btn btn-secondary" style="padding: 8px 16px; font-size: 13px;">Discord</a>
   </div>
 </header>
+
+<div class="toast-container" id="toastContainer"></div>
 
 <main class="container">
   <!-- Hero -->
@@ -575,10 +635,27 @@
   // Initialize Lucide Icons
   lucide.createIcons();
 
+  // Toast System
+  function showToast(message, iconName = 'check') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `
+      <i data-lucide="${iconName}" size="18"></i>
+      <span>${message}</span>
+    `;
+    container.appendChild(toast);
+    lucide.createIcons();
+
+    setTimeout(() => {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
   // Modern Copy to Clipboard
   async function copyToClipboard(text, btn) {
     try {
-      // Fallback for non-secure contexts or older browsers
       if (!navigator.clipboard) {
         const textarea = document.createElement('textarea');
         textarea.value = text;
@@ -592,25 +669,22 @@
         await navigator.clipboard.writeText(text);
       }
 
-      const icon = btn.querySelector('i');
-      const span = btn.querySelector('span');
-      const originalIcon = icon.getAttribute('data-lucide');
-      const originalText = span ? span.textContent : btn.textContent;
+      showToast(`Copied: ${text}`);
 
-      if (span) span.textContent = 'Copied!';
-      else btn.lastChild.textContent = ' Copied!';
+      // Visual feedback on button
+      const icon = btn.querySelector('i');
+      const originalIcon = icon.getAttribute('data-lucide');
       
       icon.setAttribute('data-lucide', 'check');
       lucide.createIcons();
 
       setTimeout(() => {
-        if (span) span.textContent = originalText;
-        else btn.lastChild.textContent = originalText;
         icon.setAttribute('data-lucide', originalIcon);
         lucide.createIcons();
       }, 2000);
     } catch (err) {
       console.error('Failed to copy: ', err);
+      showToast('Failed to copy text', 'alert-circle');
     }
   }
 </script>
