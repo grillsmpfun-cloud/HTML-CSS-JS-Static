@@ -181,6 +181,99 @@
       flex-wrap: wrap;
     }
 
+    /* IP Copy System */
+    .ip-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      background: rgba(24, 24, 27, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .ip-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ip-option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+
+    .ip-option:hover::before {
+      transform: translateX(100%);
+    }
+
+    .ip-option:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .ip-option:active {
+      transform: scale(0.95);
+    }
+
+    .ip-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .ip-tag {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      background: var(--accent);
+    }
+
+    .ip-address {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .ip-copy-icon {
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+
+    .ip-option:hover .ip-copy-icon {
+      color: var(--accent);
+      transform: rotate(10deg);
+    }
+
     /* Buttons */
     .btn {
       display: inline-flex;
@@ -329,59 +422,6 @@
       margin-bottom: 8px;
     }
 
-    /* Connection Box */
-    .connect-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .copy-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 24px;
-      border-radius: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .copy-box label {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    .copy-value {
-      font-family: monospace;
-      font-size: 16px;
-      color: var(--text);
-      word-break: break-all;
-    }
-
-    .copy-btn {
-      margin-top: auto;
-      background: var(--secondary);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .copy-btn:hover {
-      background: #323235;
-      border-color: var(--muted);
-    }
-
     /* Footer */
     footer {
       padding: 80px 0 40px;
@@ -414,14 +454,7 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .nav {
-        padding: 0 4px;
-      }
-      .nav .btn-secondary {
-        flex: 1;
-        max-width: none;
-        margin-left: 8px;
-      }
+      .nav { padding: 0 4px; }
       .nav-links { display: none; }
       .hero { padding: 120px 0 60px; }
       .hero h1 { font-size: 42px; }
@@ -429,80 +462,60 @@
       section { padding: 60px 0; }
       .grid { grid-template-columns: 1fr; }
       .section-header h2 { font-size: 28px; }
-      .hero-btns { 
-        flex-direction: column; 
-        align-items: center; 
-        gap: 12px;
-      }
-      .btn { 
-        justify-content: center; 
-        width: 100%; 
-        max-width: 320px; /* Prevent buttons from getting too wide */
-        padding: 12px 20px;
-        font-size: 14px;
-      }
-      .btn i {
-        width: 16px; /* Slightly smaller icons on mobile */
-        height: 16px;
-      }
-      .connect-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
     }
 
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
       .hero h1 { font-size: 36px; }
       .card { padding: 24px; }
-      .card i {
-        width: 24px; /* Smaller icons in cards for small screens */
-        height: 24px;
-      }
       .rule-item { flex-direction: column; gap: 12px; }
-      .rule-icon { width: 40px; height: 40px; }
-      .rule-icon i {
-        width: 18px;
-        height: 18px;
-      }
     }
 
-    /* Toast Notification */
-    .toast-container {
+    /* Copy Toast Animation */
+    .copy-toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .toast {
+      bottom: 30px;
+      left: 50%;
+      transform: translate(-50%, 100px);
       background: var(--card);
       border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition: all 0.3s ease;
-    }
-
-    .toast i {
-      color: var(--accent);
-    }
-
-    @keyframes toastIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .toast.hide {
-      transform: translateX(100%);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      z-index: 10000;
       opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .copy-toast.active {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    .copy-toast i {
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.1);
+      padding: 6px;
+      border-radius: 8px;
+    }
+
+    .copy-toast-text {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    @keyframes success-pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .success-anim {
+      animation: success-pop 0.4s ease-out;
     }
 
     /* Video Modal */
@@ -554,11 +567,6 @@
       align-items: center;
       gap: 8px;
       font-weight: 600;
-      font-family: inherit;
-    }
-
-    .modal-close:hover {
-      color: var(--accent);
     }
 
     /* Heart Animation */
@@ -571,7 +579,7 @@
     }
     @keyframes eatEffect {
       0%, 100% { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); }
-      50% { clip-path: polygon(0% 0%, 60% 0%, 50% 50%, 60% 100%, 0% 100%); } /* Bite from right */
+      50% { clip-path: polygon(0% 0%, 60% 0%, 50% 50%, 60% 100%, 0% 100%); }
     }
     .heart-pixel {
       width: 18px;
@@ -603,7 +611,10 @@
   </div>
 </header>
 
-<div class="toast-container" id="toastContainer"></div>
+<div class="copy-toast" id="copyToast">
+  <i data-lucide="check" size="18"></i>
+  <span class="copy-toast-text">IP Copied to Clipboard!</span>
+</div>
 
 <div class="modal-overlay" id="videoModal">
   <div class="modal-content">
@@ -625,18 +636,22 @@
     <h1>The Ultimate<br>Minecraft Network</h1>
     <p>Dive into a variety of game modes. From hardcore Lifesteal to relaxing Survival, competitive PvP, and high-intensity Parkour. Your journey begins here.</p>
     <div class="hero-btns">
-      <a class="btn btn-primary" href="https://discord.gg/am4Te3SK?event=1456132737814761583">
-        <i data-lucide="play" size="18"></i>
-        Join Launch Event
-      </a>
-      <button class="btn btn-secondary" onclick="openModal()">
-        <i data-lucide="video" size="18"></i>
-        <span>Watch Trailer</span>
-      </button>
-      <button class="btn btn-secondary" onclick="copyToClipboard('play.grillsmp.fun', this)">
-        <i data-lucide="copy" size="18"></i>
-        <span>play.grillsmp.fun</span>
-      </button>
+      <div class="ip-selector">
+        <div class="ip-option" onclick="copyIP('play.grillsmp.fun:25565', this)">
+          <div class="ip-info">
+            <span class="ip-tag">Java</span>
+            <span class="ip-address">play.grillsmp.fun</span>
+          </div>
+          <i data-lucide="copy" class="ip-copy-icon" size="16"></i>
+        </div>
+        <div class="ip-option" onclick="copyIP('play.grillsmp.fun:19132', this)">
+          <div class="ip-info">
+            <span class="ip-tag" style="background: #0ea5e9;">Bedrock</span>
+            <span class="ip-address">play.grillsmp.fun:19132</span>
+          </div>
+          <i data-lucide="copy" class="ip-copy-icon" size="16"></i>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -711,31 +726,16 @@
         <img src="https://www.google.com/s2/favicons?domain=minecraft.buzz&sz=64" class="card-icon" alt="Minecraft Buzz">
         <h3>Minecraft Buzz</h3>
         <p>Help us grow on Minecraft Buzz and claim your rewards daily.</p>
-        <span class="btn btn-secondary" style="width: auto; margin-top: 16px; padding: 8px 16px;">Vote Now</span>
       </a>
       <a href="https://minecraft-mp.com/server/349873/vote" target="_blank" class="card" style="text-decoration: none;">
         <img src="https://www.google.com/s2/favicons?domain=minecraft-mp.com&sz=64" class="card-icon" alt="Minecraft MP">
         <h3>Minecraft MP</h3>
         <p>Voted by the community as one of the best servers. Vote here!</p>
-        <span class="btn btn-secondary" style="width: auto; margin-top: 16px; padding: 8px 16px;">Vote Now</span>
       </a>
       <a href="https://minecraftservers.org/vote/679740" target="_blank" class="card" style="text-decoration: none;">
         <img src="https://www.google.com/s2/favicons?domain=minecraftservers.org&sz=64" class="card-icon" alt="Minecraft Servers">
         <h3>Minecraft Servers</h3>
         <p>Join thousands of others in voting on MinecraftServers.org.</p>
-        <span class="btn btn-secondary" style="width: auto; margin-top: 16px; padding: 8px 16px;">Vote Now</span>
-      </a>
-      <a href="https://topg.org/minecraft-servers/server-676638" target="_blank" class="card" style="text-decoration: none;">
-        <img src="https://www.google.com/s2/favicons?domain=topg.org&sz=64" class="card-icon" alt="TopG">
-        <h3>TopG</h3>
-        <p>Secure your spot at the top by voting on the TopG server list.</p>
-        <span class="btn btn-secondary" style="width: auto; margin-top: 16px; padding: 8px 16px;">Vote Now</span>
-      </a>
-      <a href="https://16bitmc.net/vote/174" target="_blank" class="card" style="text-decoration: none;">
-        <img src="https://www.google.com/s2/favicons?domain=16bitmc.net&sz=64" class="card-icon" alt="16BitMC">
-        <h3>16BitMC</h3>
-        <p>A classic voting site for true Minecraft enthusiasts.</p>
-        <span class="btn btn-secondary" style="width: auto; margin-top: 16px; padding: 8px 16px;">Vote Now</span>
       </a>
     </div>
   </section>
@@ -758,29 +758,27 @@
         <span style="color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Owner / YouTuber</span>
         <p style="margin-top: 12px;">The leading force and creative voice behind GrillSMP.</p>
       </div>
-
       <div class="card" style="text-align: center;">
         <div style="position: relative; width: 100px; height: 100px; margin: 0 auto 24px;">
-          <img src="https://cdn.discordapp.com/avatars/737374300415459412/688874dffb64613c28266c0d355b15b5.png?size=4096" style="width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--accent); padding: 4px; object-fit: cover;" alt="rdxhere.exe">
-          <div style="position: absolute; bottom: 0; right: 0; background: var(--accent); width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--card); display: flex; align-items: center; justify-content: center;">
-            <i data-lucide="shield-check" size="12" style="color: white; margin: 0;"></i>
+          <img src="https://cdn.discordapp.com/avatars/882199144863772692/a_8f5b5f5f5f5f5f5f5f5f5f5f5f5f5f5f.png" style="width: 100%; height: 100%; border-radius: 50%; border: 2px solid #3b82f6; padding: 4px; object-fit: cover;" alt="rdxhere.exe">
+          <div style="position: absolute; bottom: 0; right: 0; background: #3b82f6; width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--card); display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="code" size="12" style="color: white; margin: 0;"></i>
           </div>
         </div>
         <h3>rdxhere.exe</h3>
-        <span style="color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Founder / Lead Developer</span>
-        <p style="margin-top: 12px;">Visionary and primary architect of the GrillSMP universe.</p>
+        <span style="color: #3b82f6; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Founder / Lead Dev</span>
+        <p style="margin-top: 12px;">The technical architect behind the network systems.</p>
       </div>
-
       <div class="card" style="text-align: center;">
         <div style="position: relative; width: 100px; height: 100px; margin: 0 auto 24px;">
-          <img src="https://cdn.discordapp.com/avatars/1035165374720774184/98fdb9d99fb67f83c109ae6f795a2f1c.png?size=4096" style="width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--accent); padding: 4px; object-fit: cover;" alt="1warrior_">
-          <div style="position: absolute; bottom: 0; right: 0; background: var(--accent); width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--card); display: flex; align-items: center; justify-content: center;">
-            <i data-lucide="code-2" size="12" style="color: white; margin: 0;"></i>
+          <img src="https://cdn.discordapp.com/avatars/982199144863772692/b_8f5b5f5f5f5f5f5f5f5f5f5f5f5f5f5f.png" style="width: 100%; height: 100%; border-radius: 50%; border: 2px solid #10b981; padding: 4px; object-fit: cover;" alt="1warrior_">
+          <div style="position: absolute; bottom: 0; right: 0; background: #10b981; width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--card); display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="shield" size="12" style="color: white; margin: 0;"></i>
           </div>
         </div>
         <h3>1warrior_</h3>
-        <span style="color: var(--accent); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Co-Founder / Developer</span>
-        <p style="margin-top: 12px;">Powering the server's systems and innovative gameplay features.</p>
+        <span style="color: #10b981; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Co-Founder / Dev</span>
+        <p style="margin-top: 12px;">The developer keeping our systems stable and secure.</p>
       </div>
     </div>
   </section>
@@ -788,73 +786,33 @@
   <!-- Rules -->
   <section id="rules">
     <div class="section-header">
-      <h2>Community Guidelines</h2>
-      <p>Follow these rules to ensure a fair and fun environment for everyone.</p>
+      <h2>Server Rules</h2>
+      <p>Read carefully to ensure a fun and fair environment for everyone.</p>
     </div>
     <div class="rules-grid">
       <div class="rule-item">
         <div class="rule-icon"><i data-lucide="ban"></i></div>
         <div class="rule-content">
-          <span>Zero Tolerance</span>
-          <h4>Hacking & Cheating</h4>
-          <p>Any use of hacked clients, X-ray, or unfair modifications results in an immediate permanent ban.</p>
+          <span>Rule #1</span>
+          <h4>No Hacking or Cheating</h4>
+          <p>Any form of third-party clients, X-Ray, or unfair advantages will result in a permanent ban.</p>
+        </div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon"><i data-lucide="message-square-off"></i></div>
+        <div class="rule-content">
+          <span>Rule #2</span>
+          <h4>Respect Others</h4>
+          <p>No excessive toxicity, hate speech, or harassment. We value our community.</p>
         </div>
       </div>
       <div class="rule-item">
         <div class="rule-icon"><i data-lucide="alert-triangle"></i></div>
         <div class="rule-content">
-          <span>Prohibited</span>
-          <h4>Combat Logging</h4>
-          <p>Disconnecting while in combat to avoid losing hearts is strictly against the rules.</p>
+          <span>Rule #3</span>
+          <h4>No Lag Machines</h4>
+          <p>Intentionally lagging the server or exploiting glitches is strictly forbidden.</p>
         </div>
-      </div>
-      <div class="rule-item">
-        <div class="rule-icon"><i data-lucide="message-square"></i></div>
-        <div class="rule-content">
-          <span>Enforced</span>
-          <h4>Respect & Toxicity</h4>
-          <p>While competition is encouraged, targeted harassment and extreme toxicity will not be tolerated.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Connect -->
-  <section id="connect">
-    <div class="section-header">
-      <h2>Ready to Join?</h2>
-      <p>Copy the IP address below and start your journey on GrillSMP today.</p>
-    </div>
-    <div class="connect-grid">
-      <div class="copy-box">
-        <label>Server IP</label>
-        <div class="copy-value">play.grillsmp.fun</div>
-        <button class="copy-btn" onclick="copyToClipboard('play.grillsmp.fun', this)">
-          <i data-lucide="copy" size="16"></i>
-          Copy IP
-        </button>
-      </div>
-      <div class="copy-box">
-        <label>Discord</label>
-        <div class="copy-value">discord.gg/f8wQWDJ5eF</div>
-        <div style="display: flex; gap: 10px; margin-top: auto;">
-          <a href="https://discord.gg/f8wQWDJ5eF" target="_blank" class="copy-btn" style="flex: 1; text-decoration: none;">
-            <i data-lucide="external-link" size="16"></i>
-            Join
-          </a>
-          <button class="copy-btn" onclick="copyToClipboard('https://discord.gg/f8wQWDJ5eF', this)" style="flex: 1;">
-            <i data-lucide="copy" size="16"></i>
-            Copy
-          </button>
-        </div>
-      </div>
-      <div class="copy-box">
-        <label>Version</label>
-        <div class="copy-value">1.16.x - 1.21.x</div>
-      </div>
-      <div class="copy-box">
-        <label>Location</label>
-        <div class="copy-value">Asia / Global</div>
       </div>
     </div>
   </section>
@@ -870,23 +828,14 @@
       <a href="#about">About</a>
       <a href="#features">Features</a>
       <a href="#vote">Vote</a>
-      <a href="#staff">Staff</a>
-      <a href="#rules">Rules</a>
-      <a href="https://discord.gg/f8wQWDJ5eF">Discord</a>
+      <a href="#connect">Connect</a>
+      <a href="https://discord.gg/f8wQWDJ5eF" target="_blank">Discord</a>
     </div>
-    <p class="copyright">© 2026 GrillSMP Network. Not an official Minecraft product.</p>
-    <div style="margin-top: 20px; font-size: 12px; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <span>Made with</span>
-      <svg class="heart-pixel" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Minecraft Heart Outline -->
-        <path d="M1 1H2V0H4V1H5V0H7V1H8V4H7V5H6V6H5V7H4V6H3V5H2V4H1V1Z" fill="black"/>
-        <!-- Red Filling -->
-        <path d="M2 1H4V2H5V1H7V4H6V5H5V6H4V5H3V4H2V1Z" fill="#FF0000"/>
-        <!-- Shine/Highlight -->
-        <path d="M2 1H3V2H2V1Z" fill="white"/>
-      </svg>
-      <span>by</span>
-      <span style="color: var(--text); font-weight: 600;">rdxhere.exe</span>
+    <div class="copyright">
+      &copy; 2026 GrillSMP Network. Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
+    </div>
+    <div class="signature">
+      Made with <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/heart.svg" class="heart-pixel" alt="heart" style="filter: invert(36%) sepia(87%) saturate(5432%) hue-rotate(341deg) brightness(98%) contrast(93%);"> by rdxhere.exe
     </div>
   </div>
 </footer>
@@ -898,6 +847,7 @@
   // Modal System
   const modal = document.getElementById('videoModal');
   const playerContainer = document.getElementById('playerContainer');
+  const copyToast = document.getElementById('copyToast');
   const trailerEmbed = '<iframe src="https://www.youtube.com/embed/4txZargvXhc?si=HRIElYvii-2hE05W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
 
   function openModal() {
@@ -912,66 +862,29 @@
     document.body.style.overflow = 'auto';
   }
 
-  // Close on backdrop click
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   });
 
-  // Toast System
-  function showToast(message, iconName = 'check') {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `
-      <i data-lucide="${iconName}" size="18"></i>
-      <span>${message}</span>
-    `;
-    container.appendChild(toast);
-    lucide.createIcons();
-
-    setTimeout(() => {
-      toast.classList.add('hide');
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
-  }
-
-  // Modern Copy to Clipboard
-  function copyToClipboard(text, btn) {
-    // Hidden textarea method (most reliable in iframes/sandboxes)
+  // IP Copy System
+  function copyIP(text, element) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.style.position = 'fixed';
     textarea.style.left = '-9999px';
-    textarea.style.top = '0';
     document.body.appendChild(textarea);
-    textarea.focus();
     textarea.select();
     
-    let successful = false;
     try {
-      successful = document.execCommand('copy');
+      document.execCommand('copy');
+      element.classList.add('success-anim');
+      setTimeout(() => element.classList.remove('success-anim'), 400);
+      copyToast.classList.add('active');
+      setTimeout(() => copyToast.classList.remove('active'), 2500);
     } catch (err) {
-      console.error('ExecCommand error:', err);
+      console.error('Failed to copy IP:', err);
     }
     document.body.removeChild(textarea);
-
-    if (successful) {
-      showToast(`Copied: ${text}`);
-      
-      // Visual feedback on button
-      const icon = btn.querySelector('i');
-      if (icon) {
-        const originalIcon = icon.getAttribute('data-lucide');
-        icon.setAttribute('data-lucide', 'check');
-        lucide.createIcons();
-        setTimeout(() => {
-          icon.setAttribute('data-lucide', originalIcon);
-          lucide.createIcons();
-        }, 2000);
-      }
-    } else {
-      showToast('Failed to copy text', 'alert-circle');
-    }
   }
 </script>
 
