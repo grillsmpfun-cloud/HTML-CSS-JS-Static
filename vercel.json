@@ -1,6 +1,14 @@
 {
   "version": 2,
   "name": "grillsmp-lifesteal-website",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "errorPages": [
+    {
+      "status": 404,
+      "src": "/404.html"
+    }
+  ],
   "builds": [
     {
       "src": "*.html",
