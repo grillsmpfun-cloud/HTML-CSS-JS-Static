@@ -496,6 +496,58 @@
       transform: translateX(100%);
       opacity: 0;
     }
+
+    /* Video Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .modal-close:hover {
+      color: var(--accent);
+    }
+
     /* Heart Animation */
     @keyframes heartbeat {
       0% { transform: scale(1); }
@@ -538,6 +590,16 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<div class="modal-overlay" id="videoModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">
+      <span>Close</span>
+      <i data-lucide="x" size="24"></i>
+    </button>
+    <div id="playerContainer"></div>
+  </div>
+</div>
+
 <main class="container">
   <!-- Hero -->
   <section class="hero">
@@ -552,6 +614,10 @@
         <i data-lucide="play" size="18"></i>
         Join Launch Event
       </a>
+      <button class="btn btn-secondary" onclick="openModal()">
+        <i data-lucide="video" size="18"></i>
+        <span>Watch Trailer</span>
+      </button>
       <button class="btn btn-secondary" onclick="copyToClipboard('play.grillsmp.fun', this)">
         <i data-lucide="copy" size="18"></i>
         <span>play.grillsmp.fun</span>
@@ -715,6 +781,28 @@
 <script>
   // Initialize Lucide Icons
   lucide.createIcons();
+
+  // Modal System
+  const modal = document.getElementById('videoModal');
+  const playerContainer = document.getElementById('playerContainer');
+  const trailerEmbed = '<iframe width="560" height="315" src="https://www.youtube.com/embed/4txZargvXhc?si=HRIElYvii-2hE05W&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+
+  function openModal() {
+    modal.style.display = 'flex';
+    playerContainer.innerHTML = trailerEmbed;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    playerContainer.innerHTML = '';
+    document.body.style.overflow = 'auto';
+  }
+
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
 
   // Toast System
   function showToast(message, iconName = 'check') {
