@@ -1,0 +1,1 @@
+/* Empty for now, all logic in index.html for speed and performance */
