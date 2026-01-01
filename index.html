@@ -654,36 +654,40 @@
   }
 
   // Modern Copy to Clipboard
-  async function copyToClipboard(text, btn) {
+  function copyToClipboard(text, btn) {
+    // Hidden textarea method (most reliable in iframes/sandboxes)
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    
+    let successful = false;
     try {
-      if (!navigator.clipboard) {
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        textarea.style.position = 'fixed';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-      } else {
-        await navigator.clipboard.writeText(text);
-      }
+      successful = document.execCommand('copy');
+    } catch (err) {
+      console.error('ExecCommand error:', err);
+    }
+    document.body.removeChild(textarea);
 
+    if (successful) {
       showToast(`Copied: ${text}`);
-
+      
       // Visual feedback on button
       const icon = btn.querySelector('i');
-      const originalIcon = icon.getAttribute('data-lucide');
-      
-      icon.setAttribute('data-lucide', 'check');
-      lucide.createIcons();
-
-      setTimeout(() => {
-        icon.setAttribute('data-lucide', originalIcon);
+      if (icon) {
+        const originalIcon = icon.getAttribute('data-lucide');
+        icon.setAttribute('data-lucide', 'check');
         lucide.createIcons();
-      }, 2000);
-    } catch (err) {
-      console.error('Failed to copy: ', err);
+        setTimeout(() => {
+          icon.setAttribute('data-lucide', originalIcon);
+          lucide.createIcons();
+        }, 2000);
+      }
+    } else {
       showToast('Failed to copy text', 'alert-circle');
     }
   }
